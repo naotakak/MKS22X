@@ -56,7 +56,7 @@ public class QueenBoard {
 	    board[board.length - r][board.length - r] --;
 	}
     }
-
+    /*
     public boolean countSolutions() {
 	
     }
@@ -67,4 +67,6 @@ public class QueenBoard {
 
     public String toString() {
 	
-    }
+    }*/
+
+}
