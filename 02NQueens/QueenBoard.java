@@ -23,7 +23,9 @@ public class QueenBoard {
 	for (int i = 0; i < board.length; i ++) {
 	    if (board[i][col] == 0) {
 		addQueen(i, col);
-		solveH(col + 1);
+		if (solveH (col + 1)) {
+		    return true;
+		}
 		removeQueen(i, col);
 	    }
 	}
@@ -32,25 +34,55 @@ public class QueenBoard {
 
     private void addQueen(int row, int col) {
 	board[row][col] = -1;
-	for (int i = 1; i < board.length; i ++) {
-	    try {
-		board[row][col + i] += 1;
-		board[row + i][col + i] += 1;
-		board[row - i][col + i] += 1;
-	    }catch (ArrayIndexOutOfBoundsException e) {
-	    }
+	for (int c = col + 1; c < board.length; c ++) {
+	    board[row][c] ++;
+	}
+	for (int r = row + 1; r < board.length; r ++) {
+	    board[r][col] ++;
+	}
+	for (int r = row - 1; r >= 0; r --) {
+	    board[r][col] ++;
+	}
+	int posX = row + 1;
+	int posY = col + 1;
+	while (posX < board.length && posY < board.length) {
+	    board[posX][posY] ++;
+	    posX ++;
+	    posY ++;
+	}
+	posY = col + 1;
+	int negX = row - 1;
+	while (negX >= 0 && posY < board.length) {
+	    board[negX][posY] ++;
+	    negX --;
+	    posY ++;
 	}
     }
 
     private void removeQueen(int row, int col) {
         board[row][col] = 0;
-        for (int i = 1; i < board.length; i ++) {
-	    try {
-		board[row][col + i] -= 1;
-		board[row + i][col + i] -= 1;
-		board[row - i][col + i] -= 1;
-	    }catch (ArrayIndexOutOfBoundsException e) {
-	    }
+	for (int c = col + 1; c < board.length; c ++) {
+	    board[row][c] --;
+	}
+	for (int r = row + 1; r < board.length; r ++) {
+	    board[r][col] --;
+	}
+	for (int r = row - 1; r >= 0; r --) {
+	    board[r][col] --;
+	}
+	int posX = row + 1;
+	int posY = col + 1;
+	while (posX < board.length && posY < board.length) {
+	    board[posX][posY] --;
+	    posX ++;
+	    posY ++;
+	}
+	posY = col + 1;
+	int negX = row - 1;
+	while (negX >= 0 && posY < board.length) {
+	    board[negX][posY] --;
+	    negX --;
+	    posY ++;
 	}
     }
     
@@ -60,7 +92,7 @@ public class QueenBoard {
     }
 
     private void countH(int col) {
-	if (col >= board.length) {
+	if (col == board.length) {
 	    solutionCount += 1;
 	}
 	for (int i = 0; i < board.length; i ++) {
