@@ -110,7 +110,7 @@ public class QueenBoard {
 	return;
     }
 
-    public int getCount() {
+    public int getSolutionCount() {
 	if (run) {
 	    return solutionCount;
 	}
