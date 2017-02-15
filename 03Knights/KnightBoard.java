@@ -26,50 +26,53 @@ public class KnightBoard {
 	if (level >= (board.length * board[0].length)) {
 	    return true;
 	}
+	if (row >= rows || col >= cols) {
+	    return false;
+	}
 	if (board[row][col] == 0) {
 	    board[row][col] = level;
 	    if (row - 2 >= 0 
-		&& col + 1 <= cols 
+		&& col + 1 < cols
 		&& solveH(row - 2, col + 1, level + 1)) {
 		return true;
 	    }
-	    if (row - 1 >= 0 
-		&& col + 2 <= cols
+	    else if (row - 1 >= 0 
+		&& col + 2 < cols
 		&& solveH(row - 1, col + 2, level + 1)) {
 		return true;
 	    }
-	    if (row + 1 <= rows 
-		&& col + 2 <= cols
+	    else if (row + 1 < rows
+		&& col + 2 < cols
 		&& solveH(row + 1, col + 2, level + 1)) {
 		return true;
 	    }
-	    if (row + 2 <= rows
-		&& col + 1 <= cols
+	    else if (row + 2 < rows 
+		&& col + 1 < cols
 		&& solveH(row + 2, col + 1, level + 1)) {
 		return true;
 	    }
-	    if (row + 2 <= rows
+	    else if (row + 2 < rows
 		&& col - 1 >= 0
 		&& solveH(row + 2, col - 1, level + 1)) {
 		return true;
 	    }
-	    if (row + 1 <= rows
+	    else if (row + 1 < rows
 		&& col - 2 >= 0
 		&& solveH(row + 1, col - 2, level + 1)) {
 		return true;
 	    }
-	    if (row - 1 >= 0
+	    else if (row - 1 >= 0
 		&& col - 2 >= 0
 		&& solveH(row - 1, col - 2, level + 1)) {
 		return true;
 	    }
-	    if (row - 2 >= 0
+	    else if (row - 2 >= 0
 		&& col - 1 >= 0
 		&& solveH(row - 2, col - 1, level + 1)) {
 		return true;
 	    }
+	    board[row][col] = 0;
 	}
-	board[row][col] = 0;
 	return false;
     }
 
