@@ -59,7 +59,7 @@ public class KnightBoard {
 		return true;
 	    }
 	    if (row - 1 >= 0
-		&& col >= 0
+		&& col - 2 >= 0
 		&& solveH(row - 1, col - 2, level + 1)) {
 		return true;
 	    }
