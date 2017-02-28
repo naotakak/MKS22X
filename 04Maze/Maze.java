@@ -17,43 +17,52 @@ public class Maze{
       3. When the file is not found OR there is no E or S then: print an error and exit the program.
     */
     public Maze(String filename){
-        int rows = 0;
+        int rows = 1;
 	int cols = 0;
+	boolean E = false;
+	boolean S = false;
+	String s = "";
 	try {
 	    Scanner scan = new Scanner(new File(filename));
 	    cols = scan.nextLine().length();
 	    while (scan.hasNextLine()) {
 		rows += 1;
+		scan.nextLine();
+	    }
+	    scan.reset();
+	    if (!scan.hasNext()) {
+		System.out.println("a");
+	    }
+	    Scanner rScan = new Scanner(new File(filename));
+	    while (rScan.hasNext()) {
+		s += rScan.next();
+		System.out.println(rScan.next());
 	    }
 	}catch (FileNotFoundException e) {
 	    System.out.println("File not found");
 	    System.exit(0);
+	}catch (NoSuchElementException e) {
+	    System.out.println(rows);
+	    System.out.println("No Such Element");
 	}
-	maze = new char[rows][cols];
-	boolean E = false;
-	boolean S = false;
-	String s = "";
-	try {
-	    Scanner mazeFill = new Scanner(new File(filename));
-	    while (mazeFill.hasNext()) {
-		if (mazeFill.next().equals("E")) {
-		    E = true;
-		}
-		if (mazeFill.next().equals("S")) {
-		    S = true;
-		}
-		s += mazeFill.next();
-	    }
-	}catch (FileNotFoundException e) {
-	    System.out.println("");
-	}
+	/*
 	if (!E || !S) {
 	    System.out.println("Missing E or S");
 	    System.exit(0);
 	}
+	*/
+	System.out.println(rows);
+	System.out.println(cols);
+	System.out.println(s);
+	maze = new char[rows][cols];
 	for (int r = 1 ; r < maze.length + 1; r ++) {
 	    for (int c = 0 ; c < maze[0].length ; c ++) {
-		maze[r - 1][c] = s.charAt(r * c - 1);
+		if (r * c - 1 >= 0) {
+		    maze[r - 1][c] = s.charAt(r * c - 1);
+		}
+		else {
+		    maze[r - 1][c] = s.charAt(0);
+		}
 	    }
 	}
     }
@@ -99,5 +108,19 @@ public class Maze{
         //COMPLETE SOLVE
         return false; //so it compiles
     }
+    
+    public String toString() {
+	String s = "";
+	for (int r = 0 ; r < maze.length ; r ++) {
+	    for (int c = 0 ; c < maze[0].length ; c ++) {
+		s += maze[r][c];
+	    }
+	}
+	return s;
+    }
 
+    public static void main (String[]args) {
+	Maze a = new Maze("data1.dat");
+	System.out.println(a);
+    }
 }
