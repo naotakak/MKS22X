@@ -32,7 +32,6 @@ public class Maze{
 	    Scanner rScan = new Scanner(new File(filename));
 	    while (rScan.hasNextLine()) {
 		s += rScan.nextLine();
-		System.out.println(s);
 	    }
 	}catch (FileNotFoundException e) {
 	    System.out.println("File not found");
