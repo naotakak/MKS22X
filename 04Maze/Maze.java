@@ -29,14 +29,10 @@ public class Maze{
 		rows += 1;
 		scan.nextLine();
 	    }
-	    scan.reset();
-	    if (!scan.hasNext()) {
-		System.out.println("a");
-	    }
 	    Scanner rScan = new Scanner(new File(filename));
-	    while (rScan.hasNext()) {
-		s += rScan.next();
-		System.out.println(rScan.next());
+	    while (rScan.hasNextLine()) {
+		s += rScan.nextLine();
+		System.out.println(s);
 	    }
 	}catch (FileNotFoundException e) {
 	    System.out.println("File not found");
