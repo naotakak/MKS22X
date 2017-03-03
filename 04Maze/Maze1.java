@@ -81,10 +81,7 @@ public class Maze{
 		}
 	    }
             maze[startx][starty] = ' ';
-	    boolean a = solve(startx, starty);
-	    System.out.println(this);
-	    return a;
-            //return solve(startx,starty);
+            return solve(startx,starty);
     }
 
     /*
@@ -109,7 +106,6 @@ public class Maze{
 	    return true;
 	}
 	if (maze[x][y] == '#' || maze[x][y] == '.') {
-	    System.out.println('a');
 	    return false;
 	}
 	if (maze[x][y] == ' ') {
@@ -122,12 +118,11 @@ public class Maze{
 	    }
 	}
 	
-	//if (maze[x][y] == '@') {
-	//return true;
-	//}
+	if (maze[x][y] == '@') {
+	    return true;
+	}
 	
         //COMPLETE SOLVE
-	System.out.println('b');
         return false; //so it compiles
     }
     
@@ -154,5 +149,6 @@ public class Maze{
 	Maze a = new Maze("data2.dat");
 	a.setAnimate(true);
 	a.solve();
+	System.out.println(this);
     }
 }
