@@ -115,13 +115,10 @@ public class Maze{
 		  solve(x + 1 , y) ||
 		  solve(x - 1 , y)) {
 		return true;
-		//maze[x][y] = '.';
 	    }
 	}
 	maze[x][y] = '.';
-	
-        //COMPLETE SOLVE
-        return false; //so it compiles
+        return false;
     }
     
     private void wait(int millis){
