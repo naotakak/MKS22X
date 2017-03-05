@@ -99,7 +99,7 @@ public class Maze{
     */
     private boolean solve(int x, int y){
         if(animate){
-            System.out.println(this);
+            System.out.println("\033[2J\033[1;1H"+this);
             wait(10);
         }
 	if (maze[x][y] == 'E') {
@@ -149,6 +149,5 @@ public class Maze{
 	Maze a = new Maze("data2.dat");
 	a.setAnimate(true);
 	a.solve();
-	System.out.println(this);
     }
 }

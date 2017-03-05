@@ -81,10 +81,7 @@ public class Maze{
 		}
 	    }
             maze[startx][starty] = ' ';
-	    boolean a = solve(startx, starty);
-	    System.out.println(this);
-	    return a;
-            //return solve(startx,starty);
+            return solve(startx,starty);
     }
 
     /*
@@ -102,32 +99,28 @@ public class Maze{
     */
     private boolean solve(int x, int y){
         if(animate){
-            System.out.println(this);
+            System.out.println("\033[2J\033[1;1H"+this);
             wait(10);
         }
 	if (maze[x][y] == 'E') {
 	    return true;
 	}
-	if (maze[x][y] == '#' || maze[x][y] == '.') {
-	    System.out.println('a');
+	if (maze[x][y] == '#' || maze[x][y] == '@') {
 	    return false;
 	}
 	if (maze[x][y] == ' ') {
 	    maze[x][y] = '@';
-	    if (!(solve(x , y + 1) ||
+	    if (solve(x , y + 1) ||
 		  solve(x , y - 1) ||
 		  solve(x + 1 , y) ||
-		  solve(x - 1 , y))) {
-		maze[x][y] = '.';
+		  solve(x - 1 , y)) {
+		return true;
+		//maze[x][y] = '.';
 	    }
 	}
-	
-	//if (maze[x][y] == '@') {
-	//return true;
-	//}
+	maze[x][y] = '.';
 	
         //COMPLETE SOLVE
-	System.out.println('b');
         return false; //so it compiles
     }
     
