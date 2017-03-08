@@ -4,9 +4,7 @@ import java.io.*;
 public class USACO {
     
     private int[][]pasture;
-    private int elevation;
     private int[][] instructions;
-
     public USACO() {
     }
 
@@ -14,6 +12,7 @@ public class USACO {
 	int rows = 0;
 	int cols = 0;
 	int instruct = 0;
+	int elevation = 0;
 	int[] firstLine = new int[4];
 	try {
 	    Scanner scan = new Scanner(new File(filename));
@@ -37,18 +36,19 @@ public class USACO {
 		}
 	    }
 	}catch (FileNotFoundException e) {
+	    System.out.println("File Not Found");
+	    System.exit(0);
 	}
-	System.out.println(Arrays.deepToString(instructions));
-	stomp(instructions[0][0], instructions[0][1], instructions[0][2]);
-	System.out.println(Arrays.deepToString(pasture));
-	return 1;
+	for (int i = 0; i < instructions.length; i ++) {
+	    stomp(instructions[i][0], instructions[i][1], instructions[i][2]);
+	}
+	fill(elevation);
+	return this.volume();
     }
 
     public boolean stomp(int r, int c, int d) {
-
         int highR = r - 1;
 	int highC = c - 1;
-	
 	for (int row = r - 1; row < r+2; row ++) {
 	    for (int col = c - 1; col < c+2; col ++) {
 		if (pasture[row][col] > pasture[highR][highC]) {
@@ -58,7 +58,6 @@ public class USACO {
 	    }
 	}
 	int highest = pasture[highR][highC];
-	System.out.println(highest);
 	pasture[highR][highC] -= d;
 	for (int row = r - 1; row < r+2; row ++) {
 	    for (int col = c - 1; col < c+2; col ++) {
@@ -67,20 +66,34 @@ public class USACO {
 		}
 	    }
 	}
-     
 	return true;
     }
-    /*
-    public fill(int elevation) {
-	
+    
+    public void fill(int elevation) {
+	for (int r = 0; r < pasture.length; r ++) {
+	    for (int c = 0; c < pasture[0].length; c ++) {
+		if (pasture[r][c] < elevation) {
+		    pasture[r][c] = elevation - pasture[r][c];
+		}
+		else {
+		    pasture[r][c] = 0;
+		}
+	    }
+	}
     }
 
-    public volume() {
+    public int volume() {
+	int aggDepth = 0;
+	for (int r = 0; r < pasture.length; r ++) {
+	    for (int c = 0; c < pasture[0].length; c ++) {
+		aggDepth += pasture[r][c];
+	    }
+	}
+	return aggDepth * 72 * 72;
     }
-    */
-
+    
     public static void main(String[]args) {
 	USACO x = new USACO();
-	x.bronze("infile1.in");
+	System.out.println(x.bronze("infile1.in"));
     }
 }
