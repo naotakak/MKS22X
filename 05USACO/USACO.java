@@ -2,7 +2,8 @@ import java.util.*;
 import java.io.*;
 
 public class USACO {
-    
+
+    //Partner: Michael Cheng
     private int[][]pasture;
     private int[][] instructions;
     public USACO() {
