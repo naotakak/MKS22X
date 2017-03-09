@@ -6,6 +6,7 @@ public class USACO {
     //Partner: Michael Cheng
     private int[][]pasture;
     private int[][] instructions;
+    private char[][] silverP;
     public USACO() {
     }
 
@@ -92,9 +93,53 @@ public class USACO {
 	}
 	return aggDepth * 72 * 72;
     }
+
+    public int silver(String filename) {
+	int rows = 0;
+	int cols = 0;
+	int instruct = 0;
+	int elevation = 0;
+	int[] firstLine = new int[4];
+	try {
+	    Scanner scan = new Scanner(new File(filename));
+	    String next = scan.next();
+	    System.out.println(next);
+	    for (int i = 0; i < 3; i ++) {
+		firstLine[i] = Integer.parseInt(next);
+		next = scan.next();
+	    }
+	    rows = firstLine[0];
+	    cols = firstLine[1];
+	    elevation = firstLine[2];
+	    instruct = firstLine[3];
+	    silverP = new char[rows][cols];
+	    next = scan.next();
+	    for (int i = 0; i < rows; i ++) {
+		for (int c = 0; c < cols; c ++) {
+		    silverP[i][c] = next.charAt(0);
+		    next = next.substring(1);
+		}
+		next = scan.next();
+	    }
+	    instructions = new int[instruct][3];
+	    next = scan.next();
+	    for (int i = 0; i < instruct; i ++) {
+		for (int c = 0; c < 3; c ++) {
+		    instructions[i][c] = Integer.parseInt(next);
+		}
+	    }
+	}catch (FileNotFoundException e) {
+	    System.out.println("File Not Found");
+	    System.exit(0);
+	}
+	System.out.println(Arrays.deepToString(silverP));
+	return 1;
+    }
+
     
     public static void main(String[]args) {
 	USACO x = new USACO();
 	System.out.println(x.bronze("infile1.in"));
+	System.out.println(x.silver("infile2.in"));
     }
 }
