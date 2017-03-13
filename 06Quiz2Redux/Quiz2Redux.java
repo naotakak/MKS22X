@@ -8,31 +8,21 @@ public class Quiz2Redux{
      */
     public static ArrayList<String> combinations(String s){
 	ArrayList<String>words = new ArrayList<String>();
-	help( words , s);
+	help(words, s, "", 0);
 	Collections.sort(words);
 	return words;
     }
     
-    private static void help( ArrayList<String> words, String s){
-	if (s.length() == 0) {
-	    return;
+    private static void help( ArrayList<String> words, String s, String thing, int current){
+        if (current >= s.length()) {
+	    words.add(thing);
 	}
-	String add = s.substring(0,1);
-	if (words.indexOf(add) == -1) {
-	    words.add(add);
-	}
-	for (int c = 1 ; c < s.length(); c ++) {
-	    add += s.charAt(c);
-	    if (words.indexOf(add) == -1) {
-		words.add(add);
-	    }
-	}
-	help(words , s.substring(1));
-	if (words.indexOf("") == -1) {
-	    words.add("");
+	else {
+	    help(words, s, thing, current + 1);
+	    help(words, s, thing + s.charAt(current), current + 1);
 	}
     }
-
+    
     public static void main(String[]args) {
 	System.out.println(combinations("abcd"));
     }
