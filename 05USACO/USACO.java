@@ -6,7 +6,7 @@ public class USACO {
     //Partner: Michael Cheng
     private int[][]pasture;
     private int[][] instructions;
-
+    
     public USACO() {
     }
 
@@ -45,10 +45,10 @@ public class USACO {
 	    stomp(instructions[i][0], instructions[i][1], instructions[i][2]);
 	}
 	fill(elevation);
-	return this.volume();
+	return volume();
     }
 
-    public boolean stomp(int r, int c, int d) {
+    private boolean stomp(int r, int c, int d) {
         int highR = r - 1;
 	int highC = c - 1;
 	for (int row = r - 1; row < r+2; row ++) {
@@ -71,7 +71,7 @@ public class USACO {
 	return true;
     }
     
-    public void fill(int elevation) {
+    private void fill(int elevation) {
 	for (int r = 0; r < pasture.length; r ++) {
 	    for (int c = 0; c < pasture[0].length; c ++) {
 		if (pasture[r][c] < elevation) {
@@ -84,7 +84,7 @@ public class USACO {
 	}
     }
 
-    public int volume() {
+    private int volume() {
 	int aggDepth = 0;
 	for (int r = 0; r < pasture.length; r ++) {
 	    for (int c = 0; c < pasture[0].length; c ++) {
@@ -127,64 +127,45 @@ public class USACO {
 	    System.out.println("File Not Found");
 	    System.exit(0);
 	}
-	System.out.println(Arrays.toString(instruct));
-	//travel(instruct[0] - 1, instruct[1] - 1, time);
-	System.out.println(Arrays.deepToString(pasture));
-	System.out.println(pasture[instruct[2] - 1][instruct[3] - 1]);
-	return 1;
+	return (silverH(instruct[0] - 1, instruct[1] - 1, instruct[2] - 1, instruct[3] - 1, time));
+    }
+    
+    private int silverH(int r, int c, int r2, int c2, int t){
+	pasture[r][c] = 1;
+	for(int i = 0; i < t; i++){
+	    travel();
+	}
+	return pasture[r2][c2];
     }
 
-    private void travel(int rStart, int cStart, int time) {
-	if (pasture[rStart][cStart] == -1) {
-	    return;
-	}
-	int[][] array2 = new int[pasture.length][pasture[0].length];
-	for (int r = 0 ; r < pasture.length ; r ++) {
-	    for (int c = 0 ; c < pasture[0].length ; c ++) {
-		array2[r][c] = pasture[r][c];
-	    }
-	}
-	if (time == 1) {
-	    if (rStart + 1 < pasture.length && pasture[rStart + 1][cStart] != -1) {
-		pasture[rStart + 1][cStart] = 1;
-	    }
-	    if (cStart - 1 >= 0 && pasture[rStart][cStart - 1] != -1) {
-		pasture[rStart][cStart - 1] = 1;
-	    }
-	    if (cStart + 1 < pasture[0].length && pasture[rStart][cStart + 1] != -1) {
-		pasture[rStart][cStart + 1] = 1;
-	    }
-	    if (rStart - 1 >= 0 && pasture[rStart][cStart + 1] != -1) {
-		pasture[rStart - 1][cStart] = 1;
-	    }
-	}
-	else {
-	    for (int r = 0 ; r < pasture.length ; r ++) {
-		for (int c = 0 ; c < pasture[0].length ; c ++) {
-		    int up = 0;
-		    int down = 0;
-		    int left = 0;
-		    int right = 0;
-		    if (r > 0 && array2[r - 1][c] != -1) {
-			up = array2[r - 1][c];
+    private void travel(){
+	int[][] next = new int[pasture.length][pasture[0].length];
+	for(int r = 0; r < pasture.length; r++){
+	    for(int c = 0; c < pasture[0].length; c++){
+		if(pasture[r][c] == 0){
+		    for(int i = 1; i <= 4; i++){
+			int y = r + (i%2) * (2-i);
+			int x = c + ((i+1)%2) * (i-3);
+			
+			if(isInPasture(y, x) && isValid(y, x)){
+			    next[r][c] += pasture[y][x];
+			}
 		    }
-		    if (c > 0 && array2[r][c - 1] != -1) {
-			left = array2[r][c - 1];
-		    }
-		    if (c < pasture[0].length - 1 && array2[r][c + 1] != -1) {
-			right = array2[r][c + 1];
-		    }
-		    if (r < pasture.length - 1 && array2[r + 1][c] != -1) {
-			down = array2[r + 1][c];
-		    }
-		    pasture[r][c] = up + down + left + right;
+		}
+		else if(pasture[r][c] == -1){
+		    next[r][c] = -1;
 		}
 	    }
 	}
-	//System.out.println(Arrays.deepToString(pasture));
-	//System.out.println(Arrays.deepToString(array2));
-	travel(rStart, cStart, time - 1);
-			    
+	pasture = next;
+    }
+    
+    private boolean isInPasture(int r, int c){
+	return r >= 0 && c >= 0 && r < pasture.length && c < pasture[0].length;
+    }
+
+    private boolean isValid(int r, int c){
+	return pasture[r][c] != -1;
     }
     
     public static void main(String[]args) {
