@@ -1,10 +1,25 @@
 import java.util.*;
 
-public class Part {
+public class Quick {
 
-    public Part() {
+    public Quick() {
     }
     
+    public static int quickselect(int[]data, int k) {
+	int start = 0;
+	int end = data.length - 1;
+	for (int i = 0 ; i < data.length; i ++) {
+	    int partReturn = part(data, start, end);
+	    if (partReturn > k) {
+		end = partReturn;
+	    }
+	    if (partReturn < k) {
+		start = partReturn;
+	    }	     	
+	}
+	return data[k];
+    }
+
     private static int part(int[]data, int start, int end) {
 	int pivot = pickRandom(start, end);
 	int pivotThing = data[pivot];
@@ -39,6 +54,6 @@ public class Part {
 
     public static void main(String[]args) {
 	int[]pivotary = new int[] {0, 5, 1, 4, 3, 2};
-	System.out.println(part(pivotary, 0, 5));
+	System.out.println(quickselect(pivotary, 5));
     }
 }
