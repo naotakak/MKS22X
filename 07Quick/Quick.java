@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Quick {
 
     public Quick() {
@@ -53,7 +51,7 @@ public class Quick {
     }
 
     public static void main(String[]args) {
-	int[]pivotary = new int[] {0, 5, 1, 4, 3, 2};
-	System.out.println(quickselect(pivotary, 5));
+	int[]pivotary = new int[] {0,0 , 0 , 0 ,1, 1,1 };
+	System.out.println(quickselect(pivotary, 2));
     }
 }
