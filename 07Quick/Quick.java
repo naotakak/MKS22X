@@ -1,8 +1,14 @@
+import java.util.*;
 public class Quick {
 
-    public Quick() {
+    public static int[] quicksort(int[]data) {
+	int[]fin = new int[data.length];
+	for (int i = 0; i < data.length; i ++) {
+	    fin[i] = quickselect(data, i);
+	}
+	return fin;
     }
-    
+
     public static int quickselect(int[]data, int k) {
 	int start = 0;
 	int end = data.length - 1;
@@ -23,7 +29,7 @@ public class Quick {
 	int pivotThing = data[pivot];
 	for (int i = start; i <= end; i ++) {
 	    int data1 = data[i];
-	    if (data1 > pivotThing && i < pivot) {
+	    if (data1 >= pivotThing && i < pivot) {
 		data = pushBack(data, i, pivot);
 		pivot = i;
 	    }
@@ -51,7 +57,15 @@ public class Quick {
     }
 
     public static void main(String[]args) {
-	int[]pivotary = new int[] {0,0 , 0 , 0 ,1, 1,1 };
+	int[]pivotary = new int[] {2, 10, 15, 23, 0,  5};
+	/*
+	System.out.println(quickselect(pivotary, 0));
+	System.out.println(quickselect(pivotary, 1));
 	System.out.println(quickselect(pivotary, 2));
+	System.out.println(quickselect(pivotary, 3));
+	System.out.println(quickselect(pivotary, 4));
+	System.out.println(quickselect(pivotary, 5));
+	*/
+	System.out.println(Arrays.toString(quicksort(pivotary)));
     }
 }
