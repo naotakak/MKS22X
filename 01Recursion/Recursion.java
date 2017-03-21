@@ -8,10 +8,12 @@ public class Recursion {
     }
 
     private static double helper(double n, double guess) {
+	if (n == 0) {
+	    return 0;
+	}
 	if ((n - guess * guess) / n <= .000000000000001 && n - guess * guess >= 0) {
 	    return guess;
 	}
-	System.out.println(guess);
 	return helper(n, (n / guess + guess) / 2);
     }
     
