@@ -15,7 +15,6 @@ public class Merge {
 	    mergesort(right);
 	}
 	merge(left, right, ary);
-	//return;
     }
 
     private static int[] copySide(int[]a, int start, int end) {
