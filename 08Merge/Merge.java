@@ -2,15 +2,20 @@ import java.util.*;
 public class Merge {
     
     public static void mergesort(int[]ary) {
+	if (ary.length == 1) {
+	    return;
+	}
 	int i = (int)(Math.ceil(ary.length / 2.0));
-	System.out.println(i);
 	int[] left = copySide(ary, 0, i);
 	int[] right = copySide(ary, i, ary.length);
-	if (ary.length > 1) {
+	if (left.length > 1) {
 	    mergesort(left);
+	}
+	if (right.length > 1) {
 	    mergesort(right);
 	}
 	merge(left, right, ary);
+	//return;
     }
 
     private static int[] copySide(int[]a, int start, int end) {
@@ -22,11 +27,38 @@ public class Merge {
     }
 
     private static void merge(int[]a, int[]b, int[]dest) {
-	int aI = 0;
-	int bI = 0;
-	int i = 0;
-	while (aI < a.length || bI < b.length) {
-	    	}
+	for (int aI = 0, bI = 0, i = 0; i < dest.length; i ++) {
+	    if (aI == a.length) {
+		for (int thing = bI; aI + thing < dest.length; thing ++) {
+		    dest[i] = b[thing];
+		    i ++;
+		}
+		break;
+	    }
+	    if (bI == b.length) {
+		for (int thing = aI; bI + thing < dest.length; thing ++) {
+		    dest[i] = a[thing];
+		    i ++;
+		}
+		break;
+	    }
+	    if (a[aI] > b[bI]) {
+		dest[i] = b[bI];
+		bI ++;
+	    }
+	    else if (a[aI] < b[bI]) {
+		dest[i] = a[aI];
+		aI ++;
+	    }
+	    else {
+		dest[i] = a[aI];
+		aI ++;
+		i ++;
+		dest[i] = b[bI];
+		bI ++;
+	    }
+	}
+		
     }
 
     public static void main (String[]args) {
