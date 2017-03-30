@@ -55,11 +55,12 @@ public class MyLinkedList {
     public String toString() {
 	String ret = "[";
 	LNode current = start;
-	for (int i = 0; i < this.size(); i ++) {
+	for (int i = 0; i < this.size() - 1; i ++) {
 	    ret += current.value;
 	    ret += ",";
 	    current = current.next;
 	}
+	ret += current.value;
 	ret += "]";
 	return ret;
     }
