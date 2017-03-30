@@ -3,9 +3,8 @@ public class MyLinkedList {
     private LNode start;
     private int size;
 
-    public MyLinkedList(int v) {
-	start = new LNode(v);
-	size += 1;
+    public MyLinkedList() {
+	start = new LNode();
     }
 
     public boolean add(int value) {
@@ -20,7 +19,7 @@ public class MyLinkedList {
     }
 
     public void add(int index, int value) {
-	if (index >= size || index < 0) {
+	if (index > size || index < 0) {
 	    throw new IndexOutOfBoundsException();
 	}
 	LNode addition = new LNode(value);
@@ -106,6 +105,9 @@ public class MyLinkedList {
 	private int value;
 	private LNode next;
 	
+	public LNode() {
+	}
+
 	public LNode(int v, LNode n) {
 	    value = v;
 	    next = n;
@@ -117,8 +119,8 @@ public class MyLinkedList {
     }
 
     public static void main(String[]args) {
-	MyLinkedList e = new MyLinkedList(0);
-	for (int i = 1; i < 10; i ++) {
+	MyLinkedList e = new MyLinkedList();
+	for (int i = 0; i < 10; i ++) {
 	    e.add(i);
 	}
 	System.out.println(e);
