@@ -1,35 +1,60 @@
 public class MyLinkedList {
 
     private LNode start;
+    private LNode end;
     private int size;
 
     public MyLinkedList() {
 	start = new LNode();
+	end = null;
+	size = 0;
     }
 
     public boolean add(int value) {
 	LNode n = new LNode(value);
-	LNode thing = start;
-	for (int i = 0; i < size - 1; i ++) {
-	    thing = thing.next;
+	if (size < 1) {
+	    start = n;
 	}
-	thing.next = n;
+	if (size == 1) {
+	    start.next = n;
+	    n.prev = start;
+	    end = n;
+	}
+	else {
+	    end.next = n;
+	    n.prev = end;
+	    end = n;
+	}
 	size += 1;
 	return true;
     }
 
     public void add(int index, int value) {
-	if (index > size || index < 0) {
+	if (index >= size || index < 0) {
 	    throw new IndexOutOfBoundsException();
 	}
 	LNode addition = new LNode(value);
 	LNode thing = start;
+	if (size == 1) {
+	    start.next = addition;
+	    addition.prev = start;
+	    end = addition;
+	}
+	if (index == 0) {
+	    addition.next = thing;
+	    addition = start;
+	}
+	if (index == size - 1) {
+	    add(value);
+	}
 	for (int i = 0; i < index - 1; i ++) {
 	    thing = thing.next;
 	}
 	LNode oldNext = thing.next;
 	thing.next = addition;
 	addition.next = oldNext;
+	oldNext.prev = addition;
+	addition.prev = thing;
 	size += 1;
     }
 
@@ -44,6 +69,7 @@ public class MyLinkedList {
 	int val = (thing.next).value;
 	LNode newNext = thing.next.next;
 	thing.next = newNext;
+	newNext.prev = thing;
 	size -= 1;
 	return val;
     }
@@ -55,7 +81,7 @@ public class MyLinkedList {
     public String toString() {
 	String ret = "[";
 	LNode current = start;
-	for (int i = 0; i < this.size() - 1; i ++) {
+	for (int i = 0; i < this.size(); i ++) {
 	    ret += current.value;
 	    ret += ",";
 	    current = current.next;
@@ -105,6 +131,7 @@ public class MyLinkedList {
     
 	private int value;
 	private LNode next;
+	private LNode prev;
 	
 	public LNode() {
 	}
