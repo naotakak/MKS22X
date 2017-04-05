@@ -1,4 +1,5 @@
-public class MyLinkedList {
+import java.util.*;
+public class MyLinkedList implements Iterable<Integer> {
 
     private LNode start;
     private LNode end;
@@ -6,6 +7,10 @@ public class MyLinkedList {
 
     public MyLinkedList() {
 	start = new LNode();
+    }
+
+    public Iterator<Integer> iterator() {
+	return new MLLI(this);
     }
 
     public int size() {
@@ -165,14 +170,36 @@ public class MyLinkedList {
 	    e.add(i);
 	}
 	System.out.println(e);
-        e.add(2,0);
-	System.out.println(e);
-	System.out.println(e.remove(2));
-	System.out.println(e);
-	System.out.println(e.indexOf(2));
-	System.out.println(e.get(2));
-	System.out.println(e.set(2,0));
-	System.out.println(e);
+        Iterator a = e.iterator();
+        while (a.hasNext()) {
+	    System.out.println(a.next());
+	}
+    }
+
+    public class MLLI implements Iterator<Integer> {
+	
+	private MyLinkedList linkedList;
+	private int i;
+
+	public MLLI(MyLinkedList a) {
+	    linkedList = a;
+	    i = 0;
+	}
+
+	public boolean hasNext() {
+	    return i < linkedList.size() - 1;
+	}
+
+	public Integer next() {
+	    LNode node = linkedList.start;
+	    Integer val = node.value;
+	    node = node.next;
+	    return val;
+	}
+
+	public void remove() {
+	    throw new UnsupportedOperationException();
+	}
     }
 }
 
