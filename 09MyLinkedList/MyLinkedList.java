@@ -37,9 +37,6 @@ public class MyLinkedList implements Iterable<Integer> {
     }
 
     public void add(int index, int value) {
-	if (index >= size || index < 0) {
-	    throw new IndexOutOfBoundsException();
-	}
 	LNode addition = new LNode(value);
 	LNode thing = start;
 	if (size == 1) {
@@ -60,9 +57,6 @@ public class MyLinkedList implements Iterable<Integer> {
     }
 
     public int remove(int index) {
-	if (index >= size || index < 0) {
-	    throw new IndexOutOfBoundsException();
-	}
 	LNode thing = getNode(index);
 	int val = thing.value;
 	remove(thing);
@@ -70,18 +64,11 @@ public class MyLinkedList implements Iterable<Integer> {
 	return val;
     }
 
-    public int get(int index) {
-        if (index >= size || index < 0) {
-	    throw new IndexOutOfBoundsException();
-	}
-	LNode thing = getNode(index);
-	return thing.value;
+    public int get(int index) {  
+        return getNode(index).value;
     }
 
     public int set(int index, int v) {
-	if (index >= size || index < 0) {
-	    throw new IndexOutOfBoundsException();
-	}
 	LNode thing = getNode(index);
 	int old = thing.value;
 	thing.value = v;
@@ -104,25 +91,31 @@ public class MyLinkedList implements Iterable<Integer> {
     }
 
     private LNode getNode(int index) {
-	LNode startNode;
-	if (chooseSide(index)) {
-	    startNode = start;
-	    for (int i = 0; i < index; i ++) {
-		startNode = startNode.next;
-	    }
+	if (index >= size || index < 0) {
+	    throw new IndexOutOfBoundsException();
 	}
-	else {
-	    startNode = end;
-	    for (int i = size - 1; i > index; i ++) {
-		startNode = startNode.prev;
+	else{
+	    LNode temp = start;
+	    int i = 0;
+	    while(i < index){
+		temp = temp.next;
+		i++;
 	    }
+	    return temp;
 	}
-	return startNode;
     }
 
     private void remove(LNode node) {
-	node.prev.next = node.next;
-	node.next.prev = node.prev;
+	if (node == start) {
+	    start = node.next;
+	}
+	else if (node == end) {
+	    end = node.prev;
+	}
+	else {
+	    node.prev.next = node.next;
+	    node.next.prev = node.prev;
+	}
     }
 
     private void insertAfter(LNode toAdd, LNode location) {
@@ -187,14 +180,17 @@ public class MyLinkedList implements Iterable<Integer> {
 	}
 
 	public boolean hasNext() {
-	    return i < linkedList.size() - 1;
+	    return linkedList.size > i;
 	}
 
 	public Integer next() {
-	    LNode node = linkedList.start;
-	    Integer val = node.value;
-	    node = node.next;
-	    return val;
+	    if (hasNext()) {
+		i ++;
+		return linkedList.get(i - 1);
+	    }
+	    else {
+		throw new NoSuchElementException();
+	    }
 	}
 
 	public void remove() {
