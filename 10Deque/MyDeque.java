@@ -3,11 +3,12 @@ import java.util.*;
 public class MyDeque{
     
     private String[] deck;
-    private int front;
-    private int back;
+    public int front;
+    public int back;
 
-    public MyDeque() {
-	deck = new String[10];
+    public MyDeque(String s) {
+	deck = new String[1];
+	deck[deck.length - 1] = s;
 	front = deck.length - 1;
 	back = front;
     }
@@ -91,15 +92,34 @@ public class MyDeque{
     }
 
     private void resize() {
-	String[] newDeck = new String[deck.length * 2];
-	int i = back;
-	int a = 0;
-	while (i > 0 && i >= front) {
-	    newDeck[newDeck.length - a] = deck[i];
-	    //something happens here
-	    i --;
-	    a ++;
+	String[] newDeck = new String[deck.length * 2 + 1];
+	int a = newDeck.length - 1;
+        if (front < back && deck[front + 1] != null) {
+	    for (int i = front ; i < back - front ; i ++) {
+		newDeck[a] = deck[i];
+		a --;
+	    }
+	    front = a;
+	    back = newDeck.length - 1;
 	}
+	else if (front == back) {
+	    newDeck[a] = deck[front];
+	    front = a;
+	    back = a;
+	}
+	else if (back < front) {
+	    for (int i = 0; i < back; i ++) {
+		newDeck[a] = deck[i];
+		a --;
+	    }
+	    for (int i = front; i < deck.length; i ++) {
+		newDeck[a] = deck[i];
+		a --;
+	    }
+	    front = a;
+	    back = newDeck.length - 1;
+	}
+	deck = newDeck;
     }
     
     private boolean isFull() {
@@ -120,5 +140,26 @@ public class MyDeque{
 	return true;
     }
 
+    public String toString() {
+	String s = "[";
+	for (int i = 0; i < deck.length; i ++) {
+	    s += deck[i];
+	    s += ", ";
+	}
+	s += "]";
+	return s;
+    }
+
+    public static void main(String[]args) {
+	MyDeque a = new MyDeque("H");
+	a.addFirst("h");
+	System.out.println(a);
+	a.addLast("hi");
+	System.out.println(a);
+	a.addFirst("y");
+	System.out.println(a);
+	System.out.println(a.front);
+	System.out.println(a.back);
+    }
 }
     
