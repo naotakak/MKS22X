@@ -3,14 +3,11 @@ import java.util.*;
 public class MyDeque{
     
     private String[] deck;
-    public int front;
-    public int back;
+    private int front;
+    private int back;
 
-    public MyDeque(String s) {
-	deck = new String[1];
-	deck[deck.length - 1] = s;
-	front = deck.length - 1;
-	back = front;
+    public MyDeque() {
+	deck = new String[10];
     }
 
     public void addFirst(String s) {
@@ -20,14 +17,11 @@ public class MyDeque{
 	if (isFull()) {
 	    resize();
 	}
-	if (front == 0) {
-	    deck[deck.length - 1] = s;
+        front --;
+	if (front < 0) {
 	    front = deck.length - 1;
-	}
-	else {
-	    deck[front - 1] = s;
-	    front -= 1;
-	}
+        }
+	deck[front] = s;
     }
 
     public void addLast(String s) {
@@ -37,13 +31,10 @@ public class MyDeque{
 	if (isFull()) {
 	    resize();
 	}
-	if (back == deck.length - 1) {
-	    deck[0] = s;
+        deck[back] = s;
+	back ++;
+	if (back == deck.length) {
 	    back = 0;
-	}
-	else {
-	    deck[back + 1] = s;
-	    back += 1;
 	}
     }
 
@@ -66,14 +57,16 @@ public class MyDeque{
 	if (isEmpty()) {
 	    throw new NoSuchElementException();
 	}
-	String ret = deck[back];
-	deck[back] = null;
+	String ret;
 	if (back > 0) {
+	    ret = deck[back - 1];
 	    back -= 1;
 	}
 	else {
+	    ret = deck[0];
 	    back = deck.length - 1;
 	}
+	deck[back] = null;
 	return ret;
     }
 
@@ -93,32 +86,18 @@ public class MyDeque{
 
     private void resize() {
 	String[] newDeck = new String[deck.length * 2 + 1];
-	int a = newDeck.length - 1;
-        if (front < back && deck[front + 1] != null) {
-	    for (int i = front ; i < back - front ; i ++) {
-		newDeck[a] = deck[i];
-		a --;
+	int i = 0;
+	int f = front;
+	while (i < deck.length) {
+	    if (f == deck.length) {
+		f = 0;
 	    }
-	    front = a;
-	    back = newDeck.length - 1;
+	    newDeck[i] = deck[f];
+	    f ++;
+	    i++;
 	}
-	else if (front == back) {
-	    newDeck[a] = deck[front];
-	    front = a;
-	    back = a;
-	}
-	else if (back < front) {
-	    for (int i = 0; i < back; i ++) {
-		newDeck[a] = deck[i];
-		a --;
-	    }
-	    for (int i = front; i < deck.length; i ++) {
-		newDeck[a] = deck[i];
-		a --;
-	    }
-	    front = a;
-	    back = newDeck.length - 1;
-	}
+	front = 0;
+	back = deck.length;
 	deck = newDeck;
     }
     
@@ -151,15 +130,19 @@ public class MyDeque{
     }
 
     public static void main(String[]args) {
-	MyDeque a = new MyDeque("H");
+	MyDeque a = new MyDeque();
 	a.addFirst("h");
 	System.out.println(a);
 	a.addLast("hi");
 	System.out.println(a);
 	a.addFirst("y");
 	System.out.println(a);
-	System.out.println(a.front);
-	System.out.println(a.back);
+	a.removeFirst();
+	System.out.println(a);
+	System.out.println(a.removeLast());
+	System.out.println(a);
+	a.removeFirst();
+	System.out.println(a);
     }
 }
     
