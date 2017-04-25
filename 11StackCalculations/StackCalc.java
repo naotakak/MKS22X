@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class Evaluate {
+public class StackCalc {
 
     public static double eval(String s) {
 	Stack<String> thing = new Stack<String>();
@@ -21,7 +21,7 @@ public class Evaluate {
 	    || s.equals("*") || s.equals("/") || s.equals("%");
     }
 
-    private static double apply(String a, String b, String op) {
+    private static double apply(String b, String a, String op) {
 	if (op.equals("+")) {
 	    return Double.parseDouble(a) + Double.parseDouble(b);
 	}
@@ -40,6 +40,11 @@ public class Evaluate {
     }
 
     public static void main (String[]args) {
-	System.out.println(eval("2 3 + 5 * 5 % 2 2 - +"));
+        System.out.println(eval("10 2 +"));//12.0
+	System.out.println(eval("10 2 -"));//8.0
+	System.out.println(eval("10 2.0 +"));//12.0
+	System.out.println(eval("11 3 - 4 + 2.5 *"));//30.0
+	System.out.println(eval("8 2 + 99 9 - * 2 + 9 -"));//839.0
+	System.out.println(eval("10 2 + 10 * 1 + 1 1 1 + + + 10 10 + -"));//104.0
     }
 }
