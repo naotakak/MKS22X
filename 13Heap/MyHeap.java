@@ -63,7 +63,7 @@ public class MyHeap {
     private void pushDown(int index) {
 	String temp;
 	if (max) {
-	    if (index < size && 
+	    if (index * 2 < size && 
 		heap.get(index).compareTo(heap.get(index * 2)) < 0) {
 		temp = heap.get(index * 2);
 		heap.set(index * 2, heap.get(index));
@@ -72,7 +72,7 @@ public class MyHeap {
 	    }
 	}
 	else {
-	   if (index < size && 
+	   if (index * 2 < size && 
 		heap.get(index).compareTo(heap.get(index * 2)) > 0) {
 		temp = heap.get(index * 2);
 		heap.set(index * 2, heap.get(index));

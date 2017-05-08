@@ -14,17 +14,14 @@ public class RunningMedian {
     public void add(Integer a) {
 	if (a.intValue() > median) {
 	    larger.add(a);
-	    System.out.println("A");
 	    if (larger.getSize() > smaller.getSize() + 1) {
 		smaller.add(larger.remove());
 	    }
 	}
 	else {
 	    smaller.add(a);
-	    System.out.println("B");
 	    if (smaller.getSize() > larger.getSize() + 1) {
 		larger.add(smaller.remove());
-
 	    }
 	}
 	median = updateMedian();
