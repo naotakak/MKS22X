@@ -40,9 +40,8 @@ public class MyHeap {
     private void pushUp(int index) {
 	Integer temp;
 	if (max) {
-	    if (index > 0 && 
-		heap.get(index).compareTo(heap.get(index / 2)) < 0) {
-		System.out.println(index);
+	    if (index / 2 > 0 && 
+		heap.get(index / 2).compareTo(heap.get(index)) < 0) {
 		temp = heap.get(index / 2);
 		heap.set(index / 2, heap.get(index));
 		heap.set(index, temp);
@@ -50,8 +49,8 @@ public class MyHeap {
 	    }
 	}
 	else {
-	   if (index > 0 && 
-		heap.get(index).compareTo(heap.get(index / 2)) > 0) {
+	   if (index / 2 > 0 && 
+		heap.get(index / 2).compareTo(heap.get(index)) > 0) {
 		temp = heap.get(index / 2);
 		heap.set(index / 2, heap.get(index));
 		heap.set(index, temp);
@@ -65,7 +64,7 @@ public class MyHeap {
     }
 
     private int checkChildren(int index, boolean max) {
-	if (index * 2 < size && index * 2 + 1 >= size) {
+	if (index * 2 <  size && index * 2 + 1 > size) {
 	    if (max && heap.get(index).compareTo(heap.get(index * 2)) < 0) {
 		return index * 2;
 	    }
@@ -75,18 +74,20 @@ public class MyHeap {
 	}
 	if (index * 2 < size && index * 2 + 1 < size) {
 	    if (max) {
-		if (heap.get(index * 2).compareTo(heap.get(index * 2 + 1)) > 0) {
+		if (heap.get(index * 2).compareTo(heap.get(index * 2 + 1)) > 0 &&
+		    heap.get(index).compareTo(heap.get(index * 2)) < 0) {
 		    return index * 2;
 		}
-		else {
+		else if (heap.get(index).compareTo(heap.get(index * 2 + 1)) < 0){
 		    return index * 2 + 1;
 		}
 	    }
 	    if (!max) {
-		if (heap.get(index * 2).compareTo(heap.get(index * 2 + 1)) < 0) {
+		if (heap.get(index * 2).compareTo(heap.get(index * 2 + 1)) < 0 &&
+		    heap.get(index).compareTo(heap.get(index * 2)) > 0) {
 		    return index * 2;
 		}
-		else {
+		else if (heap.get(index).compareTo(heap.get(index * 2 + 1)) > 0){
 		    return index * 2 + 1;
 		}
 	    }
@@ -106,7 +107,7 @@ public class MyHeap {
 	    }
 	}
 	else {
-	   int whichToSwitch = checkChildren(index, false);
+	    int whichToSwitch = checkChildren(index, false);
 	    if (whichToSwitch != -1) {
 		temp = heap.get(whichToSwitch);
 		heap.set(whichToSwitch, heap.get(index));
