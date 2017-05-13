@@ -2,43 +2,43 @@ import java.util.*;
 
 public class MyHeap {
     
-    private ArrayList<Integer> heap;
+    private ArrayList<String> heap;
     private int size;
     private boolean max = true;
     
     public MyHeap() {
-	heap = new ArrayList<Integer>();
+	heap = new ArrayList<String>();
 	heap.add(0);
 	size = 0;
     }
 
     public MyHeap(boolean m) {
 	max = m;
-	heap = new ArrayList<Integer>();
+	heap = new ArrayList<String>();
 	heap.add(0);
 	size = 0;
     }
 
-    public Integer remove() {
-	Integer ret = heap.get(1);
+    public String remove() {
+	String ret = heap.get(1);
 	heap.set(1, heap.remove(size));
 	size -= 1;
 	pushDown(1);
 	return ret;
     }
 
-    public void add(Integer s) {
+    public void add(String s) {
 	heap.add(s);
 	size += 1;
 	pushUp(size);
     }
 
-    public Integer peek() {
+    public String peek() {
 	return heap.get(1);
     }
 
     private void pushUp(int index) {
-	Integer temp;
+	String temp;
 	if (max) {
 	    if (index / 2 > 0 && 
 		heap.get(index / 2).compareTo(heap.get(index)) < 0) {
@@ -89,7 +89,7 @@ public class MyHeap {
     }
     
     private void pushDown(int index) {
-        Integer temp;
+        String temp;
 	if (max) {
 	    int whichToSwitch = checkChildren(index, true);
 	    if (whichToSwitch != -1 &&
