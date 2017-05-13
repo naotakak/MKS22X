@@ -74,6 +74,13 @@ public class MyHeap {
 		heap.set(index, temp);
 		pushDown(index * 2);
 	    }
+	    else if ((index * 2) + 1 < size && 
+		     heap.get(index).compareTo(heap.get((index * 2) + 1)) < 0) {
+		temp = heap.get((index * 2) + 1);
+		heap.set((index * 2) + 1, heap.get(index));
+		heap.set(index, temp);
+		pushDown((index * 2) + 1);
+	    }
 	}
 	else {
 	   if (index * 2 < size && 
@@ -82,6 +89,13 @@ public class MyHeap {
 		heap.set(index * 2, heap.get(index));
 		heap.set(index, temp);
 		pushDown(index * 2);
+	    }
+	   else if ((index * 2) + 1 < size && 
+		    heap.get(index).compareTo(heap.get((index * 2) + 1)) < 0) {
+	       temp = heap.get((index * 2) + 1);
+	       heap.set((index * 2) + 1, heap.get(index));
+	       heap.set(index, temp);
+	       pushDown((index * 2) + 1);
 	    }
 	}
     }
