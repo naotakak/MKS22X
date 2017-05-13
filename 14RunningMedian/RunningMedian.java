@@ -4,7 +4,7 @@ public class RunningMedian {
 
     private MyHeap smaller;
     private MyHeap larger;
-    private double median;
+    private double median = 0.0;
 
     public RunningMedian() {
 	smaller = new MyHeap(true);
