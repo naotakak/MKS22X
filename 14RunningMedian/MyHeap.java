@@ -40,8 +40,8 @@ public class MyHeap {
     private void pushUp(int index) {
 	Integer temp;
 	if (max) {
-	    if (index > 1 && 
-		heap.get(index).compareTo(heap.get(index / 2)) > 0) {
+	    if (index > 0 && 
+		heap.get(index).compareTo(heap.get(index / 2)) < 0) {
 		System.out.println(index);
 		temp = heap.get(index / 2);
 		heap.set(index / 2, heap.get(index));
@@ -50,8 +50,8 @@ public class MyHeap {
 	    }
 	}
 	else {
-	   if (index > 1 && 
-		heap.get(index).compareTo(heap.get(index / 2)) < 0) {
+	   if (index > 0 && 
+		heap.get(index).compareTo(heap.get(index / 2)) > 0) {
 		temp = heap.get(index / 2);
 		heap.set(index / 2, heap.get(index));
 		heap.set(index, temp);
@@ -64,38 +64,54 @@ public class MyHeap {
 	return size;
     }
 
+    private int checkChildren(int index, boolean max) {
+	if (index * 2 < size && index * 2 + 1 >= size) {
+	    if (max && heap.get(index).compareTo(heap.get(index * 2)) < 0) {
+		return index * 2;
+	    }
+	    else if (!max && heap.get(index).compareTo(heap.get(index * 2)) > 0) {
+		return index * 2;
+	    }
+	}
+	if (index * 2 < size && index * 2 + 1 < size) {
+	    if (max) {
+		if (heap.get(index * 2).compareTo(heap.get(index * 2 + 1)) > 0) {
+		    return index * 2;
+		}
+		else {
+		    return index * 2 + 1;
+		}
+	    }
+	    if (!max) {
+		if (heap.get(index * 2).compareTo(heap.get(index * 2 + 1)) < 0) {
+		    return index * 2;
+		}
+		else {
+		    return index * 2 + 1;
+		}
+	    }
+	}
+	return -1;
+    }
+    
     private void pushDown(int index) {
         Integer temp;
 	if (max) {
-	    if (index * 2 < size && 
-		heap.get(index).compareTo(heap.get(index * 2)) < 0) {
-		temp = heap.get(index * 2);
-		heap.set(index * 2, heap.get(index));
+	    int whichToSwitch = checkChildren(index, true);
+	    if (whichToSwitch != -1) {
+		temp = heap.get(whichToSwitch);
+		heap.set(whichToSwitch, heap.get(index));
 		heap.set(index, temp);
-		pushDown(index * 2);
-	    }
-	    else if ((index * 2) + 1 < size && 
-		     heap.get(index).compareTo(heap.get((index * 2) + 1)) < 0) {
-		temp = heap.get((index * 2) + 1);
-		heap.set((index * 2) + 1, heap.get(index));
-		heap.set(index, temp);
-		pushDown((index * 2) + 1);
+		pushDown(whichToSwitch);
 	    }
 	}
 	else {
-	   if (index * 2 < size && 
-		heap.get(index).compareTo(heap.get(index * 2)) > 0) {
-		temp = heap.get(index * 2);
-		heap.set(index * 2, heap.get(index));
+	   int whichToSwitch = checkChildren(index, false);
+	    if (whichToSwitch != -1) {
+		temp = heap.get(whichToSwitch);
+		heap.set(whichToSwitch, heap.get(index));
 		heap.set(index, temp);
-		pushDown(index * 2);
-	    }
-	   else if ((index * 2) + 1 < size && 
-		    heap.get(index).compareTo(heap.get((index * 2) + 1)) < 0) {
-	       temp = heap.get((index * 2) + 1);
-	       heap.set((index * 2) + 1, heap.get(index));
-	       heap.set(index, temp);
-	       pushDown((index * 2) + 1);
+		pushDown(whichToSwitch);
 	    }
 	}
     }
