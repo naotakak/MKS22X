@@ -49,7 +49,7 @@ public class Location implements Comparable<Location> {
 
     public int compareTo(Location other) {
 	if (!(this.getStar() && other.getStar())) {
-	    throw new UnsupportedOperationException();
+	    return this.getDistToGoal() - other.getDistToGoal();
 	}
 	return (this.getDistToStart() + this.getDistToGoal()) 
 	    - (other.getDistToStart() + other.getDistToGoal());
