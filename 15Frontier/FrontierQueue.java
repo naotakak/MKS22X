@@ -2,11 +2,11 @@ import java.util.*;
 
 public class FrontierQueue implements Frontier{
 
-    private ArrayList<Location> queue;
+    private LinkedList<Location> queue;
     private int size;
 
     public FrontierQueue() {
-	queue = new ArrayList<Location>();
+	queue = new LinkedList<Location>();
 	size = 0;
     }
 
@@ -17,7 +17,7 @@ public class FrontierQueue implements Frontier{
 
     public Location next() {
 	size --;
-	return queue.remove(0);
+	return queue.remove();
     }
 
     public int getSize() {

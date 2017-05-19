@@ -1,4 +1,3 @@
-
 public class Location implements Comparable<Location> {
     
     private int distToGoal, distToStart, r, c;
