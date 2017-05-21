@@ -188,7 +188,7 @@ public class MazeSolver {
 
     public static void main (String[]args) {
 	MazeSolver a = new MazeSolver("maze1.txt", true);
-	a.solve(2);
+	a.solve(0);
     }
 
 }
