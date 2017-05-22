@@ -26,6 +26,14 @@ public class MazeSolver {
 		Location temp = q.next();
 		if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
 		    maze.set(temp.getR(), temp.getC(), 'E');
+		    temp = temp.getPrev();
+		    while (!temp.getPrev().equals(maze.getStart())) {
+			maze.set(temp.getR(), temp.getC(), '@');
+			temp = temp.getPrev();
+			System.out.println(this);
+		    }
+		    maze.set(temp.getR(), temp.getC(), '@');
+		    maze.set(maze.getStart().getR(), maze.getStart().getC(), 'S');
 		    System.out.println(this);
 		    return;
 		}
@@ -72,8 +80,16 @@ public class MazeSolver {
 	    int distToGoal = 0;
 	    while (q.getSize() > 0) {
 		Location temp = q.next();
-		if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
+	        if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
 		    maze.set(temp.getR(), temp.getC(), 'E');
+		    temp = temp.getPrev();
+		    while (!temp.getPrev().equals(maze.getStart())) {
+			maze.set(temp.getR(), temp.getC(), '@');
+			temp = temp.getPrev();
+			System.out.println(this);
+		    }
+		    maze.set(temp.getR(), temp.getC(), '@');
+		    maze.set(maze.getStart().getR(), maze.getStart().getC(), 'S');
 		    System.out.println(this);
 		    return;
 		}
@@ -120,8 +136,16 @@ public class MazeSolver {
 	    int distToGoal;
 	    while (q.getSize() > 0) {
 		Location temp = q.next();
-		if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
+	        if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
 		    maze.set(temp.getR(), temp.getC(), 'E');
+		    temp = temp.getPrev();
+		    while (!temp.getPrev().equals(maze.getStart())) {
+			maze.set(temp.getR(), temp.getC(), '@');
+			temp = temp.getPrev();
+			System.out.println(this);
+		    }
+		    maze.set(temp.getR(), temp.getC(), '@');
+		    maze.set(maze.getStart().getR(), maze.getStart().getC(), 'S');
 		    System.out.println(this);
 		    return;
 		}
@@ -170,8 +194,16 @@ public class MazeSolver {
 	    int distToGoal;
 	    while (q.getSize() > 0) {
 		Location temp = q.next();
-		if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
+	        if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
 		    maze.set(temp.getR(), temp.getC(), 'E');
+		    temp = temp.getPrev();
+		    while (!temp.getPrev().equals(maze.getStart())) {
+			maze.set(temp.getR(), temp.getC(), '@');
+			temp = temp.getPrev();
+			System.out.println(this);
+		    }
+		    maze.set(temp.getR(), temp.getC(), '@');
+		    maze.set(maze.getStart().getR(), maze.getStart().getC(), 'S');
 		    System.out.println(this);
 		    return;
 		}
@@ -211,7 +243,7 @@ public class MazeSolver {
 		}catch (IndexOutOfBoundsException e){}
 		maze.set(temp.getR(), temp.getC(), '.');
 		System.out.println(this);
-	    }	
+	    }
 	}
     }
 
@@ -221,14 +253,14 @@ public class MazeSolver {
 
     public String toString() {
 	if (a) {
-	    return maze.toString(20);
+	    return maze.toString(100);
 	}
 	return maze.toString();
     }
 
     public static void main (String[]args) {
-	MazeSolver a = new MazeSolver("maze1.txt", true);
-	a.solve(0);
+	MazeSolver a = new MazeSolver("maze2.txt", true);
+	a.solve(2);
     }
 
 }
