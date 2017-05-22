@@ -21,35 +21,47 @@ public class MazeSolver {
 	    FrontierStack q = new FrontierStack();
 	    q.add(maze.getStart());
 	    int distToStart = 0;
-	    int distToEnd = 0;
+	    int distToGoal = 0;
 	    while (q.getSize() > 0) {
 		Location temp = q.next();
-		if (!temp.equals(maze.getEnd())) {
-		    if (maze.get(temp.getR() + 1, temp.getC()) == ' ') {
-			q.add(new Location(temp.getR() + 1, temp.getC(), 
-					   temp, distToStart, distToEnd));
-			maze.set(temp.getR() + 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    if (maze.get(temp.getR() - 1, temp.getC()) == ' ') {
-			q.add(new Location(temp.getR() - 1, temp.getC(), 
-					   temp, distToStart, distToEnd));
-			maze.set(temp.getR() - 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    if (maze.get(temp.getR(), temp.getC() + 1) == ' ') {
-			q.add(new Location(temp.getR(), temp.getC() + 1, 
-					   temp, distToStart, distToEnd));
-			maze.set(temp.getR(), temp.getC() + 1, '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    if (maze.get(temp.getR(), temp.getC() - 1) == ' ') {
-			q.add(new Location(temp.getR(), temp.getC() - 1, 
-					   temp, distToStart, distToEnd));
-			maze.set(temp.getR() - 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
+		if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
+		    maze.set(temp.getR(), temp.getC(), 'E');
+		    System.out.println(this);
+		    return;
 		}
+		try{
+		    if(maze.get(temp.getR() + 1, temp.getC()) == ' '){
+			int r = temp.getR() + 1;
+			int c = temp.getC();
+		        q.add(new Location(r,c,temp,distToStart,distToGoal));
+			maze.set(r,c,'?');
+		}
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR() - 1, temp.getC()) == ' '){
+			int r = temp.getR() - 1;
+			int c = temp.getC();
+		        q.add(new Location(r,c,temp,distToStart,distToGoal));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR(), temp.getC() + 1) == ' '){
+			int r = temp.getR();
+			int c = temp.getC() + 1;
+			q.add(new Location(r,c,temp,distToStart,distToGoal));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR(), temp.getC() - 1) == ' '){
+			int r = temp.getR();
+			int c = temp.getC() - 1;
+			q.add(new Location(r,c,temp,distToStart,distToGoal));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		maze.set(temp.getR(), temp.getC(), '.');
 		System.out.println(this);
 	    }	
 	}
@@ -57,126 +69,154 @@ public class MazeSolver {
 	    FrontierQueue q = new FrontierQueue();
 	    q.add(maze.getStart());
 	    int distToStart = 0;
-	    int distToEnd = 0;
+	    int distToGoal = 0;
 	    while (q.getSize() > 0) {
 		Location temp = q.next();
-		if (!temp.equals(maze.getEnd())) {
-		    if (maze.get(temp.getR() + 1, temp.getC()) == ' ') {
-			q.add(new Location(temp.getR() + 1, temp.getC(), 
-					   temp, distToStart, distToEnd));
-			maze.set(temp.getR() + 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    if (maze.get(temp.getR() - 1, temp.getC()) == ' ') {
-			q.add(new Location(temp.getR() - 1, temp.getC(), 
-					   temp, distToStart, distToEnd));
-			maze.set(temp.getR() - 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    if (maze.get(temp.getR(), temp.getC() + 1) == ' ') {
-			q.add(new Location(temp.getR(), temp.getC() + 1, 
-					   temp, distToStart, distToEnd));
-			maze.set(temp.getR(), temp.getC() + 1, '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    if (maze.get(temp.getR(), temp.getC() - 1) == ' ') {
-			q.add(new Location(temp.getR(), temp.getC() - 1, 
-					   temp, distToStart, distToEnd));
-			maze.set(temp.getR() - 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
+		if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
+		    maze.set(temp.getR(), temp.getC(), 'E');
+		    System.out.println(this);
+		    return;
 		}
+		try{
+		    if(maze.get(temp.getR() + 1, temp.getC()) == ' '){
+			int r = temp.getR() + 1;
+			int c = temp.getC();
+		        q.add(new Location(r,c,temp,distToStart,distToGoal));
+			maze.set(r,c,'?');
+		}
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR() - 1, temp.getC()) == ' '){
+			int r = temp.getR() - 1;
+			int c = temp.getC();
+		        q.add(new Location(r,c,temp,distToStart,distToGoal));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR(), temp.getC() + 1) == ' '){
+			int r = temp.getR();
+			int c = temp.getC() + 1;
+			q.add(new Location(r,c,temp,distToStart,distToGoal));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR(), temp.getC() - 1) == ' '){
+			int r = temp.getR();
+			int c = temp.getC() - 1;
+			q.add(new Location(r,c,temp,distToStart,distToGoal));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		maze.set(temp.getR(), temp.getC(), '.');
 		System.out.println(this);
-	    }	
+	    }  	
 	}
 	if (i == 2) { //BestFirst
 	    FrontierPriorityQueue q = new FrontierPriorityQueue();
 	    q.add(maze.getStart());
-	    int distToStart = 0;
-	    int distToEnd = maze.getEnd().getDistToGoal();
+	    int distToStart;
+	    int distToGoal;
 	    while (q.getSize() > 0) {
 		Location temp = q.next();
-		if (!temp.equals(maze.getEnd())) {
-		    if (maze.get(temp.getR() + 1, temp.getC()) == ' ') {
-			distToStart ++;
-			distToEnd --;
-			q.add(new Location(temp.getR() + 1, temp.getC(), 
-					   temp, distToStart, distToEnd, false));
-			maze.set(temp.getR() + 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    else if (maze.get(temp.getR() - 1, temp.getC()) == ' ') {
-			distToStart ++;
-			distToEnd --;
-			q.add(new Location(temp.getR() - 1, temp.getC(), 
-					   temp, distToStart, distToEnd, false));
-			maze.set(temp.getR() - 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    else if (maze.get(temp.getR(), temp.getC() + 1) == ' ') {
-			distToStart ++;
-			distToEnd --;
-			q.add(new Location(temp.getR(), temp.getC() + 1, 
-					   temp, distToStart, distToEnd, false));
-			maze.set(temp.getR(), temp.getC() + 1, '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    else if (maze.get(temp.getR(), temp.getC() - 1) == ' ') {
-			distToStart ++;
-			distToEnd --;
-			q.add(new Location(temp.getR(), temp.getC() - 1, 
-					   temp, distToStart, distToEnd, false));
-			maze.set(temp.getR() - 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
+		if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
+		    maze.set(temp.getR(), temp.getC(), 'E');
+		    System.out.println(this);
+		    return;
 		}
+		distToStart = distCalc(temp.getR(), temp.getC(), maze.getStart());
+		distToGoal = distCalc(temp.getR(), temp.getC(), maze.getEnd());
+		try{
+		    if(maze.get(temp.getR() + 1, temp.getC()) == ' '){
+			int r = temp.getR() + 1;
+			int c = temp.getC();
+		        q.add(new Location(r,c,temp,distToStart,distToGoal,false));
+			maze.set(r,c,'?');
+		}
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR() - 1, temp.getC()) == ' '){
+			int r = temp.getR() - 1;
+			int c = temp.getC();
+		        q.add(new Location(r,c,temp,distToStart,distToGoal,false));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR(), temp.getC() + 1) == ' '){
+			int r = temp.getR();
+			int c = temp.getC() + 1;
+			q.add(new Location(r,c,temp,distToStart,distToGoal,false));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR(), temp.getC() - 1) == ' '){
+			int r = temp.getR();
+			int c = temp.getC() - 1;
+			q.add(new Location(r,c,temp,distToStart,distToGoal,false));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		maze.set(temp.getR(), temp.getC(), '.');
 		System.out.println(this);
 	    }	
 	}
 	if (i == 3) { //A*
 	    FrontierPriorityQueue q = new FrontierPriorityQueue();
 	    q.add(maze.getStart());
-	    int distToStart = 0;
-	    int distToEnd = maze.getEnd().getDistToGoal();
+	    int distToStart;
+	    int distToGoal;
 	    while (q.getSize() > 0) {
 		Location temp = q.next();
-		if (!temp.equals(maze.getEnd())) {
-		    if (maze.get(temp.getR() + 1, temp.getC()) == ' ') {
-			distToStart ++;
-			distToEnd --;
-			q.add(new Location(temp.getR() + 1, temp.getC(), 
-					   temp, distToStart, distToEnd, true));
-			maze.set(temp.getR() + 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    else if (maze.get(temp.getR() - 1, temp.getC()) == ' ') {
-			distToStart ++;
-			distToEnd --;
-			q.add(new Location(temp.getR() - 1, temp.getC(), 
-					   temp, distToStart, distToEnd, true));
-			maze.set(temp.getR() - 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    else if (maze.get(temp.getR(), temp.getC() + 1) == ' ') {
-			distToStart ++;
-			distToEnd --;
-			q.add(new Location(temp.getR(), temp.getC() + 1, 
-					   temp, distToStart, distToEnd, true));
-			maze.set(temp.getR(), temp.getC() + 1, '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
-		    else if (maze.get(temp.getR(), temp.getC() - 1) == ' ') {
-			distToStart ++;
-			distToEnd --;
-			q.add(new Location(temp.getR(), temp.getC() - 1, 
-					   temp, distToStart, distToEnd, true));
-			maze.set(temp.getR() - 1, temp.getC(), '?');
-			maze.set(temp.getR(), temp.getC(), '.');
-		    }
+		if(distCalc(temp.getR(), temp.getC(), maze.getEnd()) == 0){
+		    maze.set(temp.getR(), temp.getC(), 'E');
+		    System.out.println(this);
+		    return;
 		}
+		distToStart = distCalc(temp.getR(), temp.getC(), maze.getStart());
+		distToGoal = distCalc(temp.getR(), temp.getC(), maze.getEnd());
+		try{
+		    if(maze.get(temp.getR() + 1, temp.getC()) == ' '){
+			int r = temp.getR() + 1;
+			int c = temp.getC();
+		        q.add(new Location(r,c,temp,distToStart,distToGoal,true));
+			maze.set(r,c,'?');
+		}
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR() - 1, temp.getC()) == ' '){
+			int r = temp.getR() - 1;
+			int c = temp.getC();
+		        q.add(new Location(r,c,temp,distToStart,distToGoal,true));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR(), temp.getC() + 1) == ' '){
+			int r = temp.getR();
+			int c = temp.getC() + 1;
+			q.add(new Location(r,c,temp,distToStart,distToGoal,true));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		try{
+		    if(maze.get(temp.getR(), temp.getC() - 1) == ' '){
+			int r = temp.getR();
+			int c = temp.getC() - 1;
+			q.add(new Location(r,c,temp,distToStart,distToGoal,true));
+			maze.set(r,c,'?');
+		    }
+		}catch (IndexOutOfBoundsException e){}
+		maze.set(temp.getR(), temp.getC(), '.');
 		System.out.println(this);
 	    }	
 	}
+    }
+
+    public int distCalc(int r, int c, Location b){
+	return (Math.abs(b.getR() - r) + Math.abs(b.getC() - c));
     }
 
     public String toString() {

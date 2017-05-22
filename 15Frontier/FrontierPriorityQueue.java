@@ -19,7 +19,9 @@ public class FrontierPriorityQueue implements Frontier{
 
     public Location next() {
 	Location ret = queue.get(1);
+	try {
 	queue.set(1, queue.remove(size));
+	}catch (IndexOutOfBoundsException e){};
 	size --;
 	pushDown(1);
 	return ret;
