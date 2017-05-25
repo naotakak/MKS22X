@@ -28,8 +28,8 @@ public class FrontierPriorityQueue implements Frontier{
 
     private void pushUp(int index) {
 	Location temp;
-	if (index / 2 > 0 && 
-	    queue.get(index / 2).compareTo(queue.get(index)) < 0) {
+        if (index / 2 > 0 && 
+	    queue.get(index / 2).compareTo(queue.get(index)) > 0) {
 	    temp = queue.get(index / 2);
 	    queue.set(index / 2, queue.get(index));
 	    queue.set(index, temp);
@@ -48,7 +48,7 @@ public class FrontierPriorityQueue implements Frontier{
         if (index * 2 + 1 > size){
 	    return index * 2;
 	}
-	if(queue.get(index * 2 + 1).compareTo(queue.get(index * 2))>0){
+        if (queue.get(index * 2 + 1).compareTo(queue.get(index * 2)) < 0){
 	    return index * 2 + 1;
 	}
 	else{
@@ -60,7 +60,7 @@ public class FrontierPriorityQueue implements Frontier{
         Location temp;
 	int whichToSwitch = checkChildren(index);
 	if (whichToSwitch != -1 &&
-	    queue.get(whichToSwitch).compareTo(queue.get(index)) > 0) {
+	    queue.get(whichToSwitch).compareTo(queue.get(index)) < 0) {
 	    temp = queue.get(whichToSwitch);
 	    queue.set(whichToSwitch, queue.get(index));
 	    queue.set(index, temp);
